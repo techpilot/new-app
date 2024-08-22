@@ -22,11 +22,12 @@ export class AutobotsService {
   async createAutobots(): Promise<void> {
     try {
       for (let i = 0; i < 500; i++) {
+        const code = Math.floor(1000 + Math.random() * 9000);
         const { data: user } = await axios.get(
           'https://jsonplaceholder.typicode.com/users/1',
         );
         const autobot = this.autobotsRepository.create({
-          name: `${user.name}-${i}`,
+          name: `${user.name}-${i}-${code}`,
         });
 
         const createdAutobot = await this.autobotsRepository.save(autobot);
@@ -36,7 +37,7 @@ export class AutobotsService {
             `https://jsonplaceholder.typicode.com/posts/${j + 1}`,
           );
           const postEntity = this.postsRepository.create({
-            title: `${post.title}-${i}-${j}`, // Ensure unique titles
+            title: `${post.title}-${i}-${j}-${code}`, // Ensure unique titles
             body: post.body,
             autobot: createdAutobot,
           });
