@@ -19,8 +19,9 @@ export class AutobotsService {
     private commentsRepository: Repository<CommentEntity>,
   ) {}
 
-  async createAutobots(): Promise<void> {
+  async createAutobots(): Promise<number> {
     try {
+      let count = 0;
       for (let i = 0; i < 500; i++) {
         const code = Math.floor(1000 + Math.random() * 9000);
         const { data: user } = await axios.get(
@@ -56,20 +57,14 @@ export class AutobotsService {
             await this.commentsRepository.save(commentEntity);
           }
         }
+
+        count++;
       }
 
       this.logger.log('500 Autobots created successfully.');
+      return count;
     } catch (error) {
       this.logger.error('Error creating Autobots:', error.message);
-    }
-  }
-
-  async getAutobotsCount(): Promise<number> {
-    try {
-      const autobots = await this.autobotsRepository.find();
-      return autobots.length;
-    } catch (error) {
-      console.log(error);
     }
   }
 

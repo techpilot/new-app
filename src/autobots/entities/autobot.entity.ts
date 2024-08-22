@@ -1,4 +1,3 @@
-// src/autobot.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { PostEntity } from '../../posts/entities/post.entity';
 
