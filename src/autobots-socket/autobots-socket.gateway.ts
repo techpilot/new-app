@@ -17,4 +17,10 @@ export class AutobotsSocketGateway {
     const autobotCount = await this.autobotsService.getAutobotsCount();
     this.server.emit('autobotCount', autobotCount);
   }
+
+  @Cron('*/5 * * * * *') // Runs every 5 seconds
+  async handleCountUpdate() {
+    const autobotCount = await this.autobotsService.getAutobotsCount();
+    this.server.emit('autobotCount', autobotCount);
+  }
 }
