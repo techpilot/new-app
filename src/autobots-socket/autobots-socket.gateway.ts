@@ -1,6 +1,5 @@
 import { WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
-import { AutobotsSocketService } from './autobots-socket.service';
-import { AutobotsService } from 'src/autobots/autobots.service';
+import { AutobotsService } from '../autobots/autobots.service';
 import { Socket } from 'socket.io';
 import { Cron } from '@nestjs/schedule';
 
@@ -9,10 +8,7 @@ export class AutobotsSocketGateway {
   @WebSocketServer()
   server: Socket;
 
-  constructor(
-    private readonly autobotsSocketService: AutobotsSocketService,
-    private readonly autobotsService: AutobotsService,
-  ) {}
+  constructor(private readonly autobotsService: AutobotsService) {}
 
   //  Runs every hour to create bot and updates bots count to the client in real-time
   @Cron('0 0 * * * *')
